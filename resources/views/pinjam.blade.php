@@ -51,26 +51,42 @@
                                                             <td class="align-middle">{{ $loop->iteration }}</td>
                                                             <td class="align-middle">{{ $data->peminjam->nama }}</td>
                                                             <td class="align-middle">{{ $data->detailPinjam->count() }}</td>
-                                                            <td class="align-middle">{{ $data->pinjam->date_start }}</td>
-                                                            <td class="align-middle">{{ $data->pinjam->date_end }}</td>
-                                                            <td class="align-middle">{{ $data->pinjam->returned_date }}</td>
+                                                            <td class="align-middle">{{ $data->date_start }}</td>
+                                                            <td class="align-middle">{{ $data->date_end }}</td>
+                                                            @if ( $data->is_returned == 0 )
+                                                            <td class="align-middle">Belum kembali</td>
+                                                            @else
+                                                            <td class="align-middle">{{ $data->returned_date }}</td>
+                                                            @endif
                                                             <td>
-                                                                <form action="{{ route('peminjam-show-update', $data->id) }}" class="d-inline">
+                                                                @if( $data->is_returned == 0 )
+                                                                <form action="{{ route('pinjam-show-update', $data->id) }}" class="d-inline">
                                                                     @csrf
                                                                     <a onclick='this.parentNode.submit(); return false;' class="btn btn-primary btn-icon-split">
                                                                         <span class="icon text-white-50">
                                                                             <i class="fas fa-eye"></i>
                                                                         </span>
-                                                                        <span class="text">Update peminjam</span>
+                                                                        <span class="text">Lihat pinjaman</span>
                                                                     </a>
                                                                 </form>
-                                                                <form action="{{ route('peminjam-delete', $data->id) }}" method="POST" class="d-inline">
+                                                                @else
+                                                                <form action="{{ route('pinjam-show-done', $data->id) }}" class="d-inline">
+                                                                    @csrf
+                                                                    <a onclick='this.parentNode.submit(); return false;' class="btn btn-primary btn-icon-split">
+                                                                        <span class="icon text-white-50">
+                                                                            <i class="fas fa-eye"></i>
+                                                                        </span>
+                                                                        <span class="text">Lihat pinjaman</span>
+                                                                    </a>
+                                                                </form>
+                                                                @endif
+                                                                <form action="{{ route('pinjam-delete', $data->id) }}" method="POST" class="d-inline">
                                                                     @csrf
                                                                     <a onclick='this.parentNode.submit(); return false;' class="btn btn-danger btn-icon-split">
                                                                         <span class="icon text-white-50">
                                                                             <i class="fas fa-trash"></i>
                                                                         </span>
-                                                                        <span class="text">Hapus peminjam</span>
+                                                                        <span class="text">Hapus pinjaman</span>
                                                                     </a>
                                                                 </form>
                                                             </td>

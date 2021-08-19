@@ -7,6 +7,8 @@ use App\Peminjam;
 use App\SatuanBuku;
 use App\Buku;
 use App\Pinjam;
+use App\DetailPinjam;
+use App\Penerbit;
 
 class PinjamController extends Controller
 {
@@ -23,38 +25,96 @@ class PinjamController extends Controller
     }
 
     public function showAddPinjam() {
-        $penerbit = Penerbit::get();
-        return view('buku-tambah', compact('penerbit'));
+        $peminjam = Peminjam::get();
+
+        $satuanBuku = SatuanBuku::where('status_pinjam', 1)->get();
+        $buku = Buku::get()->map(function($item){
+            $item->penerbit = $item->getPenerbit();
+            return $item;
+        });
+        return view('pinjam-tambah', compact('peminjam', 'buku', 'satuanBuku'));
     }
 
-    public function showEditPinjam(Buku $buku) {
-        $buku = Buku::where('id', $buku->id)->get()->first();
-        $penerbit = Penerbit::get();
-        $satuanBuku = SatuanBuku::where('id_buku', $buku->id)->get();
-        return view('buku-edit', compact('buku', 'penerbit', 'satuanBuku'));
+    public function showEditPinjam(Pinjam $pinjam) {
+        $buku = Buku::get()->map(function($item){
+            $item->penerbit = $item->getPenerbit();
+            return $item;
+        });
+
+        $pinjam = Pinjam::where('id', $pinjam->id)->get()->first();
+        $detailPinjam = DetailPinjam::where("id_pinjam", $pinjam->id)->get();
+        $peminjam = Peminjam::where('id', $pinjam->id_peminjam)->first();
+        $satuanBuku = SatuanBuku::get();
+
+        return view('pinjam-edit', compact('buku', 'pinjam', 'peminjam', 'detailPinjam', 'satuanBuku'));
+    }
+
+    public function showPinjamDone(Pinjam $pinjam) {
+        $buku = Buku::get()->map(function($item){
+            $item->penerbit = $item->getPenerbit();
+            return $item;
+        });
+
+        $pinjam = Pinjam::where('id', $pinjam->id)->get()->first();
+        $detailPinjam = DetailPinjam::where("id_pinjam", $pinjam->id)->get();
+        $peminjam = Peminjam::where('id', $pinjam->id_peminjam)->first();
+        $satuanBuku = SatuanBuku::get();
+
+        return view('pinjam-done', compact('buku', 'pinjam', 'peminjam', 'detailPinjam', 'satuanBuku'));
     }
 
     public function createPinjam(Request $request) {
-        // $this->validate($request,[
-        //     'nama_penerbit' => "required|min:3|max:100",
-        // ],
-        // [
-        //     'nama_penerbit.required' => "Nama penerbit wajib diisi",
-        //     'nama_penerbit.min' => "Nama penerbit minimal berjumlah 3 karakter",
-        //     'nama_penerbit.max' => "Nama penerbit maksimal berjumlah 50 karakter",
-        // ]);
 
-        $buku = Buku::create([
-            'nama_buku' => $request->nama_buku,
-            'id_penerbit' => $request->penerbit,
-            'isbn' => $request->isbn,
+        $pinjam = Pinjam::create([
+            'is_returned' => 0,
+            'id_peminjam' => $request->peminjam,
+            'date_start' => $request->date_start,
+            'date_end' => $request->date_end,
         ]);
 
-        if ($buku) {
-            return redirect()->back()->with('done', 'Buku berhasil di tambahkan');
+        if ($request->satuan_buku_1 != null) {
+            $detailPinjam1 = DetailPinjam::create([
+                'id_pinjam' => $pinjam->id,
+                'id_satuan_buku'=> $request->satuan_buku_1,
+                'is_broken' => 0
+            ]);
+
+            $buku1 = SatuanBuku::where('id', $request->satuan_buku_1)->update([
+                'status_pinjam' => 0
+            ]);
+        }
+
+        if ($request->satuan_buku_2 != null) {
+            $detailPinjam2 = DetailPinjam::create([
+                'id_pinjam' => $pinjam->id,
+                'id_satuan_buku'=> $request->satuan_buku_2,
+                'is_broken' => 0
+            ]);
+
+            $buku2 = SatuanBuku::where('id', $request->satuan_buku_2)->update([
+                'status_pinjam' => 0
+            ]);
+        }
+
+
+        if ($request->satuan_buku_3 != null) {
+            $detailPinjam3 = DetailPinjam::create([
+                'id_pinjam' => $pinjam->id,
+                'id_satuan_buku'=> $request->satuan_buku_3,
+                'is_broken' => 0
+            ]);
+
+            $buku3 = SatuanBuku::where('id', $request->satuan_buku_3)->update([
+                'status_pinjam' => 0
+            ]);
+        }
+
+
+        if ($pinjam) {
+            return redirect()->back()->with('done', 'Pinjaman baru berhasil di tambahkan');
         }
         else {
-            return redirect()->back()->with('failed', 'Buku gagal di tambahkan');
+            return redirect()->back()->with('failed', 'Pinjaman baru gagal di tambahkan');
         }
     }
 
@@ -68,33 +128,27 @@ class PinjamController extends Controller
         }
     }
 
-    public function updatePinjam(Buku $buku, Request $request) {
-        $buku = Buku::where('id', $buku->id)->update([
-            'nama_buku' => $request->nama_buku,
-            'id_penerbit' => $request->penerbit,
-            'isbn' => $request->isbn,
-        ]);;
+    public function pinjamDone(Pinjam $pinjam, Request $request) {
 
-        if ($buku>0) {
-            return redirect()->back()->with('done', 'Buku berhasil di update');
+        $pinjamUpdate = Pinjam::where('id', $pinjam->id)->update([
+            'returned_date' => $request->date_returned,
+            'denda' => $request->denda,
+            'is_returned' => 1
+        ]);
+
+        $detailPinjam = DetailPinjam::where('id_pinjam', $pinjam->id)->get();
+
+        foreach($detailPinjam as $detailPinjams) {
+            $satuanBuku = SatuanBuku::where('id', $detailPinjams->id_satuan_buku)->update([
+                'status_pinjam' => 1
+            ]);
+        }
+
+        if ($pinjamUpdate>0) {
+            return redirect()->back()->with('done-pinjam', 'Buku berhasil di update');
         }
         else {
-            return redirect()->back()->with('failed', 'Buku gagal di update');
-        }
-    }
-
-    public function pinjamDone(Buku $buku, Request $request) {
-        $buku = Buku::where('id', $buku->id)->update([
-            'nama_buku' => $request->nama_buku,
-            'id_penerbit' => $request->penerbit,
-            'isbn' => $request->isbn,
-        ]);;
-
-        if ($buku>0) {
-            return redirect()->back()->with('done', 'Buku berhasil di update');
-        }
-        else {
-            return redirect()->back()->with('failed', 'Buku gagal di update');
+            return redirect()->back()->with('failed-pinjam', 'Buku gagal di update');
         }
     }
 }

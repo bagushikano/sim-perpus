@@ -10,11 +10,11 @@ class DetailPinjam extends Model
 
     protected $fillable = [
         'id_pinjam',
-        'id_buku',
+        'id_satuan_buku',
         'is_broken',
     ];
 
     public function pinjam() {
-        return $this->belongsTo(Pinjam::class, 'id_buku', 'id');
+        return $this->belongsTo(Pinjam::class, 'id_pinjam', 'id');
     }
 }

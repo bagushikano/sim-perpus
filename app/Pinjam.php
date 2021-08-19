@@ -23,7 +23,7 @@ class Pinjam extends Model
     }
 
     public function detailPinjam() {
-        return $this->hasMany(DetailPinjam::class, 'id_buku', 'id');
+        return $this->hasMany(DetailPinjam::class, 'id_pinjam', 'id');
     }
 
 }

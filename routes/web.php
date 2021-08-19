@@ -56,6 +56,6 @@ Route::get('/pinjam-add', "PinjamController@showAddPinjam")->name('pinjam-add');
 Route::post('/pinjam-store', "PinjamController@createPinjam")->name('pinjam-store');
 Route::post('/pinjam-delete/{pinjam}', "PinjamController@deletePinjam")->name('pinjam-delete');
 Route::get('/pinjam-show-update/{pinjam}', "PinjamController@showEditPinjam")->name('pinjam-show-update');
-Route::post('/pinjam-update/{pinjam}', "PinjamController@updatePinjam")->name('pinjam-update');
+Route::get('/pinjam-show-done/{pinjam}', "PinjamController@showPinjamDone")->name('pinjam-show-done');
 Route::post('/pinjam-done/{pinjam}', "PinjamController@pinjamDone")->name('pinjam-done');
 
