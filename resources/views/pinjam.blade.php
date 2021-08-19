@@ -80,15 +80,6 @@
                                                                     </a>
                                                                 </form>
                                                                 @endif
-                                                                <form action="{{ route('pinjam-delete', $data->id) }}" method="POST" class="d-inline">
-                                                                    @csrf
-                                                                    <a onclick='this.parentNode.submit(); return false;' class="btn btn-danger btn-icon-split">
-                                                                        <span class="icon text-white-50">
-                                                                            <i class="fas fa-trash"></i>
-                                                                        </span>
-                                                                        <span class="text">Hapus pinjaman</span>
-                                                                    </a>
-                                                                </form>
                                                             </td>
                                                         </tr>
                                                     @endforeach
