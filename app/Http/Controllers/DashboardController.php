@@ -7,6 +7,7 @@ use App\Buku;
 use App\Pinjam;
 use App\Penerbit;
 use App\Peminjam;
+use App\SatuanBuku;
 
 class DashboardController extends Controller
 {
@@ -19,6 +20,9 @@ class DashboardController extends Controller
         $totalPenerbit = Penerbit::get();
         $totalPeminjam = Peminjam::get();
         $totalPinjam = Pinjam::where('is_returned',0)->get();
-        return view('dashboard', compact('totalBuku', 'totalPenerbit', 'totalPeminjam', 'totalPinjam'));
+        $totalBukuDiPinjam = SatuanBuku::where("status_pinjam", 0)->get()->count();
+        $totalSatuanBuku = SatuanBuku::get()->count();
+        $totalBukuRusak = SatuanBuku::where("kondisi", 0)->get()->count();
+        return view('dashboard', compact('totalBuku', 'totalPenerbit', 'totalPeminjam', 'totalPinjam', 'totalBukuDiPinjam', 'totalSatuanBuku', 'totalBukuRusak'));
     }
 }
