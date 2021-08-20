@@ -27,7 +27,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <a onclick='this.parentNode.submit(); return false;' class="btn btn-primary btn-icon-split">
+                                            <a onclick='this.parentNode.submit(); return false;' class="btn btn-success btn-icon-split">
                                                 <span class="icon text-white-50">
                                                     <i class="fas fa-check"></i>
                                                 </span>

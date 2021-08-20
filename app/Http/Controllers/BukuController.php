@@ -68,11 +68,12 @@ class BukuController extends Controller
     }
 
     public function updateBuku(Buku $buku, Request $request) {
+
         $buku = Buku::where('id', $buku->id)->update([
             'nama_buku' => $request->nama_buku,
             'id_penerbit' => $request->penerbit,
             'isbn' => $request->isbn,
-        ]);;
+        ]);
 
         if ($buku>0) {
             return redirect()->back()->with('done', 'Buku berhasil di update');
@@ -98,6 +99,7 @@ class BukuController extends Controller
     public function updateSatuanBuku(Request $request) {
           $satuanBuku = SatuanBuku::where('id', $request->satuan_update)->update([
             'kondisi' => $request->kondisi,
+            'status_pinjam' => $request->pinjam,
         ]);;
 
         if ($satuanBuku>0) {

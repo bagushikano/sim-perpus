@@ -100,6 +100,20 @@
             </li></span></a>
             </li>
 
+            <hr class="sidebar-divider">
+
+            <!-- Heading -->
+            <div class="sidebar-heading">
+                Manajemen admin
+            </div>
+
+            <li class="nav-item" id="passchange">
+                <a class="nav-link" href="{{ route('change-admin-pass') }}">
+                    <i class="fas fa-fw fa-book"></i>
+                    <span>Ganti password admin</span></a>
+            </li></span></a>
+            </li>
+
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">
 

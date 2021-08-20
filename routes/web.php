@@ -59,3 +59,6 @@ Route::get('/pinjam-show-update/{pinjam}', "PinjamController@showEditPinjam")->n
 Route::get('/pinjam-show-done/{pinjam}', "PinjamController@showPinjamDone")->name('pinjam-show-done');
 Route::post('/pinjam-done/{pinjam}', "PinjamController@pinjamDone")->name('pinjam-done');
 
+
+Route::get('/admin/change-pass', "AdminController@showChangeAdminPass")->name('change-admin-pass');
+Route::post('/admin/update-pass', "PeminjamController@updateAdminPass")->name('update-admin-pass');

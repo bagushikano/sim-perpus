@@ -61,20 +61,20 @@
                                                             <td>
                                                                 <form action="{{ route('buku-show-update', $data->id) }}" class="d-inline">
                                                                     @csrf
-                                                                    <a onclick='this.parentNode.submit(); return false;' class="btn btn-primary btn-icon-split">
+                                                                    <a onclick='this.parentNode.submit(); return false;' class="btn btn-primary btn-circle">
                                                                         <span class="icon text-white-50">
                                                                             <i class="fas fa-eye"></i>
                                                                         </span>
-                                                                        <span class="text">Update buku</span>
+
                                                                     </a>
                                                                 </form>
                                                                 <form action="{{ route('buku-delete', $data->id) }}" method="POST" class="d-inline">
                                                                     @csrf
-                                                                    <a onclick='this.parentNode.submit(); return false;' class="btn btn-danger btn-icon-split">
+                                                                    <a onclick='this.parentNode.submit(); return false;' class="btn btn-danger btn-circle">
                                                                         <span class="icon text-white-50">
                                                                             <i class="fas fa-trash"></i>
                                                                         </span>
-                                                                        <span class="text">Hapus buku</span>
+
                                                                     </a>
                                                                 </form>
                                                             </td>

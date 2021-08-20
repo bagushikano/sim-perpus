@@ -48,11 +48,11 @@
                                                     </select>
                                                 </div>
                                             </div>
-                                            <a onclick='this.parentNode.submit(); return false;' class="btn btn-primary btn-icon-split">
+                                            <a onclick='this.parentNode.submit(); return false;' class="btn btn-success btn-icon-split">
                                                 <span class="icon text-white-50">
-                                                    <i class="fas fa-plus"></i>
+                                                    <i class="fas fa-check"></i>
                                                 </span>
-                                                <span class="text">Tambah buku</span>
+                                                <span class="text">Simpan data</span>
                                             </a>
                                         </form>
                                     </div>
@@ -99,10 +99,20 @@
                                                         <option value=1>Bagus</option>
                                                     </select>
                                                 </div>
+                                                <div class="input-group mt-3">
+                                                    <div class="input-group-prepend">
+                                                        <label class="input-group-text" for="pinjam">Ketersediaan buku untuk di pinjam</label>
+                                                    </div>
+                                                    <select class="custom-select" id="pinjam" name="pinjam">
+                                                        <option value="" hidden>Pilih ketersediaan buku untuk di pinjam</option>
+                                                        <option value=0>Tidak tersedia</option>
+                                                        <option value=1>Tersedia</option>
+                                                    </select>
+                                                </div>
                                             </div>
-                                            <a onclick='this.parentNode.submit(); return false;' class="btn btn-primary btn-icon-split">
+                                            <a onclick='this.parentNode.submit(); return false;' class="btn btn-success btn-icon-split">
                                                 <span class="icon text-white-50">
-                                                    <i class="fas fa-plus"></i>
+                                                    <i class="fas fa-check"></i>
                                                 </span>
                                                 <span class="text">Simpan data</span>
                                             </a>
@@ -130,7 +140,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <a onclick='this.parentNode.submit(); return false;' class="btn btn-success btn-icon-split">
+                                            <a onclick='this.parentNode.submit(); return false;' class="btn btn-primary btn-icon-split">
                                                 <span class="icon text-white-50">
                                                     <i class="fas fa-plus"></i>
                                                 </span>
