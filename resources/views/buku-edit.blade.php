@@ -82,9 +82,17 @@
                                                         <option value="" hidden>Pilih satuan buku</option>
                                                         @foreach ($satuanBuku as $satuanBukus)
                                                             @if($satuanBukus->kondisi == 0)
-                                                            <option value={{ $satuanBukus->id }}>Id satuan buku {{ $satuanBukus->id}} (Kondisi rusak)</option>
+                                                                @if($satuanBukus->status_pinjam == 0)
+                                                                <option value={{ $satuanBukus->id }}>Id satuan buku {{ $satuanBukus->id}} [Kondisi rusak, Sedang di pinjam]</option>
+                                                                @else
+                                                                <option value={{ $satuanBukus->id }}>Id satuan buku {{ $satuanBukus->id}} [Kondisi rusak, Tidak di pinjam]</option>
+                                                                @endif
                                                             @else
-                                                            <option value={{ $satuanBukus->id }}>Id satuan buku {{ $satuanBukus->id}} (Kondisi bagus)</option>
+                                                                @if($satuanBukus->status_pinjam == 0)
+                                                                <option value={{ $satuanBukus->id }}>Id satuan buku {{ $satuanBukus->id}} [Kondisi bagus, Sedang di pinjam]</option>
+                                                                @else
+                                                                <option value={{ $satuanBukus->id }}>Id satuan buku {{ $satuanBukus->id}} [Kondisi bagus, Tidak di pinjam]</option>
+                                                                @endif
                                                             @endif
                                                         @endforeach
                                                     </select>
@@ -172,9 +180,17 @@
                                                         <option value="" hidden>Pilih satuan buku</option>
                                                         @foreach ($satuanBuku as $satuanBukus)
                                                             @if($satuanBukus->kondisi == 0)
-                                                            <option value={{ $satuanBukus->id }}>Id satuan buku {{ $satuanBukus->id}} [Kondisi rusak]</option>
+                                                                @if($satuanBukus->status_pinjam == 0)
+                                                                <option value={{ $satuanBukus->id }}>Id satuan buku {{ $satuanBukus->id}} [Kondisi rusak, Sedang di pinjam]</option>
+                                                                @else
+                                                                <option value={{ $satuanBukus->id }}>Id satuan buku {{ $satuanBukus->id}} [Kondisi rusak, Tidak di pinjam]</option>
+                                                                @endif
                                                             @else
-                                                            <option value={{ $satuanBukus->id }}>Id satuan buku {{ $satuanBukus->id}} [Kondisi bagus]</option>
+                                                                @if($satuanBukus->status_pinjam == 0)
+                                                                <option value={{ $satuanBukus->id }}>Id satuan buku {{ $satuanBukus->id}} [Kondisi bagus, Sedang di pinjam]</option>
+                                                                @else
+                                                                <option value={{ $satuanBukus->id }}>Id satuan buku {{ $satuanBukus->id}} [Kondisi bagus, Tidak di pinjam]</option>
+                                                                @endif
                                                             @endif
                                                         @endforeach
                                                     </select>

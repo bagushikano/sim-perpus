@@ -78,7 +78,7 @@
                                 </div>
                                 <div class="card-body">
                                     <div>
-                                        <form method="POST" action="{{ route('pinjam-done', $pinjam->id)}}">
+                                        <form method="POST" action="{{ route('pinjam-delete', $pinjam->id)}}">
                                             @csrf
                                             <div class="form-group">
                                                 <div class="form-row mb-3">
@@ -96,6 +96,12 @@
                                                     </div>
                                                 </div>
                                             </div>
+                                            <a onclick='this.parentNode.submit(); return false;' class="btn btn-danger btn-icon-split">
+                                                <span class="icon text-white-50">
+                                                    <i class="fas fa-trash"></i>
+                                                </span>
+                                                <span class="text">Hapus data</span>
+                                            </a>
                                         </form>
                                     </div>
                                 </div>
@@ -118,36 +124,10 @@
 
     </script>
 
-
-
-    @if((session('done')))
-    <script>
-        $(document).ready(function(){
-            alertDone('Data pinjaman berhasil di tambahkan')
-        });
-    </script>
-    @endif
-
     @if((session('failed')))
         <script>
             $(document).ready(function(){
-                alertFail('Data pinjaman gagal di tambahkan')
-            });
-        </script>
-    @endif
-
-    @if((session('done-pinjam')))
-    <script>
-        $(document).ready(function(){
-            alertDone('Peminjaman buku selesai')
-        });
-    </script>
-    @endif
-
-    @if((session('failed-pinjam')))
-        <script>
-            $(document).ready(function(){
-                alertFail('Peminjaman buku gagal di selesaikan')
+                alertFail('Data gagal di hapus')
             });
         </script>
     @endif

@@ -118,10 +118,10 @@ class PinjamController extends Controller
         }
     }
 
-    public function deletePinjam($buku) {
-        $buku = Buku::where('id', $buku)->delete();
-        if ($buku>0) {
-            return redirect()->back()->with('done-delete', 'Buku berhasil di hapus');
+    public function deletePinjam($pinjam) {
+        $pinjam = Pinjam::where('id', $pinjam)->delete();
+        if ($pinjam>0) {
+            return redirect()->route('pinjam')->with('done-delete', 'Buku berhasil di hapus');
         }
         else {
             return redirect()->back()->with('failed-delete', 'Buku gagal di hapus');

@@ -48,7 +48,7 @@ class PeminjamController extends Controller
         }
     }
 
-    public function deletePenerbit($penerbit) {
+    public function deletePeminjam($peminjam) {
         $peminjam = Peminjam::where('id', $peminjam)->delete();
         if ($peminjam>0) {
             return redirect()->back()->with('done-delete', 'Peminjam berhasil di hapus');

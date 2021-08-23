@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\User;
+use Illuminate\Support\Facades\Auth;
+use App\Admin;
 
 class AdminController extends Controller
 {
@@ -19,5 +20,21 @@ class AdminController extends Controller
         $user = Auth::user();
 
 
+        if(Auth::guard()->attempt(['email' => $user->email, 'password' => $request->password_old])) {
+            $updateUser = Admin::where('id', $user->id)->update([
+                'password' => bcrypt($request->password_new)
+            ]);
+
+            if ($updateUser>0) {
+                return redirect()->back()->with('done', 'Satuan buku berhasil di edit');
+            }
+            else {
+                return redirect()->back()->with('failed', 'Satuan buku gagal di edit');
+            }
+        }
+
+        else {
+            return redirect()->back()->with('wrong-old-password', 'Periksa kembali password lama');
+        }
     }
 }

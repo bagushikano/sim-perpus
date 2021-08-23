@@ -235,6 +235,13 @@
     </script>
 
 
+    @if((session('done-delete')))
+    <script>
+        $(document).ready(function(){
+            alertDone('Data pinjaman berhasil di hapus')
+        });
+    </script>
+    @endif
 
     @if((session('done')))
     <script>

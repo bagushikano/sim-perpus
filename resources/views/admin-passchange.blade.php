@@ -17,27 +17,35 @@
                                 </div>
                                 <div class="card-body">
                                     <div>
-                                        <form method="POST" action="">
+                                        <form method="POST" action="{{ route('update-admin-pass')}}">
                                             @csrf
                                             <div class="form-group">
                                                 <div class="form-row">
                                                     <div class="col">
-                                                        <label for="nama_desa">Password lama</label>
-                                                        <input value="" type="text" class="form-control" name="password_admin" id="password_admin_lama" placeholder="Contoh: Erlangga" required>
+                                                        <label for="password_old">Password lama</label>
+                                                        <input value="" type="password" class="form-control" name="password_old" id="password_old" placeholder="Masukkan password lama" required>
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group mt-2">
+                                                    <div class="custom-control custom-checkbox small">
+                                                        <input type="checkbox" class="custom-control-input" id="customCheck">
+                                                        <label class="custom-control-label" for="customCheck" id="show_old_password" onclick="showPasswordOld()">Perlihatkan password</label>
                                                     </div>
                                                 </div>
 
                                                 <div class="form-row mt-3">
                                                     <div class="col">
-                                                        <label for="nama_desa">Password baru</label>
-                                                        <input value="" type="text" class="form-control" name="password_admin" id="password_admin_baru" placeholder="Contoh: Erlangga" required>
+                                                        <label for="password_new">Password baru</label>
+                                                        <input value="" type="password" class="form-control" name="password_new" id="password_new" placeholder="Masukkan password baru" required>
                                                     </div>
+                                                </div>
 
-                                                    <div class="col">
-                                                        <label for="nama_desa">Konfirmasi password baru</label>
-                                                        <input value="" type="text" class="form-control" name="password_admin" id="password_admin_confirm" placeholder="Contoh: Erlangga" required>
+                                                <div class="form-group mt-2">
+                                                    <div class="custom-control custom-checkbox small">
+                                                        <input type="checkbox" class="custom-control-input" id="customCheck1">
+                                                        <label class="custom-control-label" for="customCheck1" id="show_new_password" onclick="showPasswordNew()">Perlihatkan password</label>
                                                     </div>
-
                                                 </div>
 
 
@@ -64,6 +72,25 @@
         $(document).ready(function(){
             $('#passchange').addClass('active');
         });
+
+        function showPasswordOld() {
+            var x = document.getElementById("password_old");
+            if (x.type === "password") {
+                x.type = "text";
+            } else {
+                x.type = "password";
+            }
+        }
+
+        function showPasswordNew() {
+            var x = document.getElementById("password_new");
+            if (x.type === "password") {
+                x.type = "text";
+            } else {
+                x.type = "password";
+            }
+        }
+
     </script>
 
 
@@ -71,6 +98,14 @@
     <script>
         $(document).ready(function(){
             alertDone('Password berhasil di ganti')
+        });
+    </script>
+    @endif
+
+    @if((session('wrong-old-password')))
+    <script>
+        $(document).ready(function(){
+            alertFail('Periksa kembali password lama')
         });
     </script>
     @endif
